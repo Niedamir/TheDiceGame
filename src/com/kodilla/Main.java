@@ -40,6 +40,10 @@ public class Main extends Application {
 	boolean playerTurn = true;
 	boolean [] playerSetToRoll = new boolean [3];
 
+//	public void playerTurn() {}
+//	public void computerTurn() {}
+
+
 	@Override
 	public void start(Stage primaryStage){
 		dicePoints.add(imgDice1Point);
@@ -148,6 +152,11 @@ public class Main extends Application {
 		primaryStage.setTitle("The Dice Game");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+//		while(computerScore < 100 && playerScore < 100) {
+//			playerTurn();
+//			computerTurn();
+//		}
 	}
 
 	public static void main(String[] args) {

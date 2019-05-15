@@ -10,12 +10,6 @@ public class Dice {
 	Image result;
 
 	public Image roll(ArrayList<Image> dicePoints) {
-		rollResult = rollGen.nextInt(6) + 1;
-		for(int i = 1; i <= 6; i++) {
-			if(rollResult == i) {
-				result = dicePoints.get(i);
-			}
-		}
-		return result;
+		return dicePoints.get(rollGen.nextInt(6));
 	}
 }

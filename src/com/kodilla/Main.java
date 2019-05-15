@@ -111,14 +111,17 @@ public class Main extends Application {
 		btnRoll.setText("Rzuć kośćmi");
 		btnRoll.setOnAction((e) -> {
 			if (playerTurn == true && playerSetToRoll [0] == true) {
+				playerPool.getChildren().remove(0);
 				ImageView imgPlayerDice1 = new ImageView(playerDice1.roll(dicePoints));
 				playerPool.getChildren().add(imgPlayerDice1);
 			}
 			if (playerTurn == true && playerSetToRoll [1] == true) {
+				playerPool.getChildren().remove(1);
 				ImageView imgPlayerDice2 = new ImageView(playerDice2.roll(dicePoints));
 				playerPool.getChildren().add(imgPlayerDice2);
 			}
 			if (playerTurn == true && playerSetToRoll [2] == true) {
+				playerPool.getChildren().remove(2);
 				ImageView imgPlayerDice3 = new ImageView(playerDice3.roll(dicePoints));
 				playerPool.getChildren().add(imgPlayerDice3);
 			}
@@ -131,14 +134,14 @@ public class Main extends Application {
 		grid.setVgap(5);
 		grid.setBackground(board);
 
-		grid.add(btnStart, 5, 5, 5,5);
-		grid.add(btnRoll, 15, 15, 5,5);
+		grid.add(btnStart, 5, 10, 1,1);
+		grid.add(btnRoll, 10, 10, 1,1);
 
 		grid.add(playerPool, 0, 3, 1, 1);
 		grid.add(computerPool, 0,0,1,1);
 		grid.add(btnSetToRoll1, 0, 15, 1, 1);
-		grid.add(btnSetToRoll2, 5, 15, 1, 1);
-		grid.add(btnSetToRoll3, 10, 15, 1, 1);
+		grid.add(btnSetToRoll2, 1, 15, 1, 1);
+		grid.add(btnSetToRoll3, 2, 15, 1, 1);
 
 		Scene scene = new Scene(grid, 900, 600, Color.BLACK);
 

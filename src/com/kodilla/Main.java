@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main extends Application {
 	Image imgBoard = new Image("file:resources/woodBoard.jpg");
@@ -25,20 +26,18 @@ public class Main extends Application {
 
 	ArrayList<Image> dicePoints = new ArrayList<Image>();
 
-	FlowPane playerPool = new FlowPane(Orientation.HORIZONTAL);
-	FlowPane computerPool = new FlowPane(Orientation.HORIZONTAL);
+	FlowPane playerDicePanel = new FlowPane(Orientation.HORIZONTAL);
+	FlowPane computerDicePanel = new FlowPane(Orientation.HORIZONTAL);
 
-	Dice playerDice1 = new Dice();
-	Dice playerDice2 = new Dice();
-	Dice playerDice3 = new Dice();
-	Dice computerDice1 = new Dice();
-	Dice computerDice2 = new Dice();
-	Dice computerDice3 = new Dice();
+	Pool playerPool = new Pool(new HashMap());
+	Pool computerPool = new Pool(new HashMap());
+
 	int playerScore = 0;
 	int computerScore = 0;
 
 	boolean playerTurn = true;
-	boolean [] playerSetToRoll = new boolean [3];
+	boolean [] playerSetToRoll = new boolean [4];
+	boolean [] computerSetToRoll = new boolean [4];
 
 //	public void playerTurn() {}
 //	public void computerTurn() {}
@@ -53,82 +52,24 @@ public class Main extends Application {
 		dicePoints.add(imgDice5Point);
 		dicePoints.add(imgDice6Point);
 
+		for(int i = 0; i < 4; i++) {
+			playerSetToRoll[i] = true;
+			playerDicePanel.getChildren().add(new ImageView(imgDice6Point));
+			computerSetToRoll[i] = true;
+			computerDicePanel.getChildren().add(new ImageView(imgDice6Point));
+		}
+
 		BackgroundSize boardSize = new BackgroundSize(100, 100, true, true, true, false);
 		BackgroundImage boardImage = new BackgroundImage(imgBoard, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, boardSize);
 		Background board = new Background(boardImage);
 
-		Button btnStart = new Button();
-		btnStart.setText("Rozpocznij grę");
-		btnStart.setOnAction((e) -> {
-			ImageView imgComputerDice1 = new ImageView(computerDice1.roll(dicePoints));
-			computerPool.getChildren().add(imgComputerDice1);
-			ImageView imgComputerDice2 = new ImageView(computerDice2.roll(dicePoints));
-			computerPool.getChildren().add(imgComputerDice2);
-			ImageView imgComputerDice3 = new ImageView(computerDice3.roll(dicePoints));
-			computerPool.getChildren().add(imgComputerDice3);
-			ImageView imgPlayerDice1 = new ImageView(playerDice1.roll(dicePoints));
-			playerPool.getChildren().add(imgPlayerDice1);
-			ImageView imgPlayerDice2 = new ImageView(playerDice2.roll(dicePoints));
-			playerPool.getChildren().add(imgPlayerDice2);
-			ImageView imgPlayerDice3 = new ImageView(playerDice3.roll(dicePoints));
-			playerPool.getChildren().add(imgPlayerDice3);
-		});
-
-		Button btnSetToRoll1 = new Button();
-		btnSetToRoll1.setText("Zaznacz");
-		btnSetToRoll1.setOnAction((e) -> {
-			if (playerTurn == true && playerSetToRoll [0] == false) {
-				playerSetToRoll[0] = true;
-				btnSetToRoll1.setText("Odznacz");
-			}
-			else {
-				playerSetToRoll[0] = false;
-				btnSetToRoll1.setText("Zaznacz");
-			}
-		});
-		Button btnSetToRoll2 = new Button();
-		btnSetToRoll2.setText("Zaznacz");
-		btnSetToRoll2.setOnAction((e) -> {
-			if (playerTurn == true && playerSetToRoll [1] == false) {
-				playerSetToRoll[1] = true;
-				btnSetToRoll2.setText("Odznacz");
-			}
-			else {
-				playerSetToRoll[1] = false;
-				btnSetToRoll2.setText("Zaznacz");
-			}
-		});
-		Button btnSetToRoll3 = new Button();
-		btnSetToRoll3.setText("Zaznacz");
-		btnSetToRoll3.setOnAction((e) -> {
-			if (playerTurn == true && playerSetToRoll [2] == false) {
-				playerSetToRoll[2] = true;
-				btnSetToRoll3.setText("Odznacz");
-			}
-			else {
-				playerSetToRoll[2] = false;
-				btnSetToRoll3.setText("Zaznacz");
-			}
-		});
-
 		Button btnRoll = new Button();
 		btnRoll.setText("Rzuć kośćmi");
 		btnRoll.setOnAction((e) -> {
-			if (playerTurn == true && playerSetToRoll [0] == true) {
-				playerPool.getChildren().remove(0);
-				ImageView imgPlayerDice1 = new ImageView(playerDice1.roll(dicePoints));
-				playerPool.getChildren().add(imgPlayerDice1);
-			}
-			if (playerTurn == true && playerSetToRoll [1] == true) {
-				playerPool.getChildren().remove(1);
-				ImageView imgPlayerDice2 = new ImageView(playerDice2.roll(dicePoints));
-				playerPool.getChildren().add(imgPlayerDice2);
-			}
-			if (playerTurn == true && playerSetToRoll [2] == true) {
-				playerPool.getChildren().remove(2);
-				ImageView imgPlayerDice3 = new ImageView(playerDice3.roll(dicePoints));
-				playerPool.getChildren().add(imgPlayerDice3);
-			}
+			playerPool.rollPool(playerSetToRoll);
+			playerPool.displayPool(playerDicePanel, dicePoints);
+			computerPool.rollPool(computerSetToRoll);
+			computerPool.displayPool(computerDicePanel, dicePoints);
 		});
 
 		GridPane grid = new GridPane();
@@ -138,14 +79,10 @@ public class Main extends Application {
 		grid.setVgap(5);
 		grid.setBackground(board);
 
-		grid.add(btnStart, 5, 10, 1,1);
-		grid.add(btnRoll, 10, 10, 1,1);
+		grid.add(playerDicePanel, 0, 3, 1, 1);
+		grid.add(computerDicePanel, 0,0,1,1);
 
-		grid.add(playerPool, 0, 3, 1, 1);
-		grid.add(computerPool, 0,0,1,1);
-		grid.add(btnSetToRoll1, 0, 15, 1, 1);
-		grid.add(btnSetToRoll2, 1, 15, 1, 1);
-		grid.add(btnSetToRoll3, 2, 15, 1, 1);
+		grid.add(btnRoll, 15,15, 1,1);
 
 		Scene scene = new Scene(grid, 900, 600, Color.BLACK);
 

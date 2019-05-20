@@ -1,8 +1,10 @@
 package com.kodilla;
 
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +13,7 @@ import java.util.Random;
 public class Pool {
 	Random rollGen = new Random();
 	HashMap<Integer, Integer> thePool;
+	Button btnSetDice = new Button();
 
 	//CONSTRUCTOR
 	public Pool(HashMap thePool) {
@@ -22,11 +25,23 @@ public class Pool {
 	}
 
 	//CODE
+	public boolean[] getPool(GridPane grid, boolean isPlayerTurn) {
+		boolean[] result = new boolean[4];
+		if(isPlayerTurn == true) {
+			grid.add(btnSetDice, 0,0,1, 1);
+			btnSetDice.setText("Dodaj do puli");
+			btnSetDice.setOnAction((e) -> {
+				result[0] = true;
+			});
+		}
+		return result;
+	}
+
 	public void rollPool(boolean[] setToRoll) {
 		thePool.forEach((k, v) -> {
 			if (setToRoll[k] == true) {
 				thePool.replace(k, rollGen.nextInt(6));
-				//setToRoll[k] = false;
+				setToRoll[k] = false;
 			}
 		});
 	}

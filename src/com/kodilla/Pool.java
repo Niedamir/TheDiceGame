@@ -13,7 +13,6 @@ import java.util.Random;
 public class Pool {
 	Random rollGen = new Random();
 	HashMap<Integer, Integer> thePool;
-	Button btnSetDice = new Button();
 
 	//CONSTRUCTOR
 	public Pool(HashMap thePool) {
@@ -25,18 +24,15 @@ public class Pool {
 	}
 
 	//CODE
-	public boolean[] getPool(GridPane grid, boolean isPlayerTurn) {
-		boolean[] result = new boolean[4];
-		if(isPlayerTurn == true) {
-			grid.add(btnSetDice, 0,0,1, 1);
-			btnSetDice.setText("Dodaj do puli");
-			btnSetDice.setOnAction((e) -> {
-				result[0] = true;
+	public boolean[] getPool(GridPane grid, boolean[] diceToRoll, ArrayList<Button> setters) {
+		for (int x = 0; x < 4; x++) {
+			setters.get(x).setOnAction((e) -> {
+				diceToRoll[x] = true;
+				grid.getChildren().remove(setters.get(x));
 			});
 		}
-		return result;
+		return diceToRoll;
 	}
-
 	public void rollPool(boolean[] setToRoll) {
 		thePool.forEach((k, v) -> {
 			if (setToRoll[k] == true) {

@@ -1,5 +1,6 @@
 package com.kodilla;
 
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -12,6 +13,11 @@ public class Initialization {
 	Image imgDice4Point = new Image("file:resources/dice4.png");
 	Image imgDice5Point = new Image("file:resources/dice5.png");
 	Image imgDice6Point = new Image("file:resources/dice6.png");
+
+	Button btnSetDice1 = new Button();
+	Button btnSetDice2 = new Button();
+	Button btnSetDice3 = new Button();
+	Button btnSetDice4 = new Button();
 
 	public void initializeDice(boolean[] iniDice, FlowPane iniDicePanel) {
 		for(int i = 0; i < 4; i++) {
@@ -28,5 +34,13 @@ public class Initialization {
 		dicePointsList.add(imgDice5Point);
 		dicePointsList.add(imgDice6Point);
 		return dicePointsList;
+	}
+	public ArrayList<Button> initializeSetters() {
+		ArrayList<Button> setters = new ArrayList<>();
+		setters.add(btnSetDice1);
+		setters.add(btnSetDice2);
+		setters.add(btnSetDice3);
+		setters.add(btnSetDice4);
+		return setters;
 	}
 }

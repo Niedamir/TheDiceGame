@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class Main extends Application {
 	Image imgBoard = new Image("file:resources/woodBoard.jpg");
 	ArrayList<Image> dicePointsList = new ArrayList<Image>();
+	ArrayList<Button> setters = new ArrayList<Button>();
 
 	FlowPane playerDicePanel = new FlowPane(Orientation.HORIZONTAL);
 	FlowPane computerDicePanel = new FlowPane(Orientation.HORIZONTAL);
@@ -22,7 +24,7 @@ public class Main extends Application {
 	boolean [] computerSetToRoll = new boolean [4];
 
 	@Override
-	public void start(Stage primaryStage){
+	public void start(Stage primaryStage) {
 		BackgroundSize boardSize = new BackgroundSize(100, 100, true, true, true, false);
 		BackgroundImage boardImage = new BackgroundImage(imgBoard, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, boardSize);
 		Background board = new Background(boardImage);
@@ -35,7 +37,7 @@ public class Main extends Application {
 		grid.setBackground(board);
 
 		grid.add(playerDicePanel, 0, 3, 1, 1);
-		grid.add(computerDicePanel, 0,0,1,1);
+		grid.add(computerDicePanel, 0, 0, 1, 1);
 
 		Scene scene = new Scene(grid, 900, 600, Color.BLACK);
 
@@ -47,9 +49,11 @@ public class Main extends Application {
 		initializator.initializeDice(playerSetToRoll, playerDicePanel);
 		initializator.initializeDice(computerSetToRoll, computerDicePanel);
 		dicePointsList = initializator.initializeDicePointsList();
+		setters = initializator.initializeSetters();
 
 		GameMechanic gameProcessor = new GameMechanic();
-		gameProcessor.roll(grid, playerDicePanel, computerDicePanel, dicePointsList, playerSetToRoll, computerSetToRoll);
+		gameProcessor.roll(grid, playerDicePanel, computerDicePanel, dicePointsList, playerSetToRoll, computerSetToRoll, setters);
+		gameProcessor.reroll(grid, playerDicePanel, computerDicePanel, dicePointsList, playerSetToRoll, computerSetToRoll, setters);
 	}
 
 	public static void main(String[] args) {

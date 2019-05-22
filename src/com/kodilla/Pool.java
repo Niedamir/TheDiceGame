@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 public class Pool {
@@ -23,14 +24,27 @@ public class Pool {
 		thePool.put(3, 0);
 	}
 
+	//EQUALS && HASHCODE
+	@Override
+	public boolean equals(Object o) {
+		if(this == o) return true;
+		if(o == null || getClass() != o.getClass()) return false;
+		Pool pool = (Pool) o;
+		return Objects.equals(thePool, pool.thePool);
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(thePool);
+	}
+
 	//CODE
 	public boolean[] getPool(GridPane grid, boolean[] diceToRoll, ArrayList<Button> setters) {
-		for (int x = 0; x < 4; x++) {
-			setters.get(x).setOnAction((e) -> {
-				diceToRoll[x] = true;
-				grid.getChildren().remove(setters.get(x));
-			});
-		}
+//		for (int x = 0; x < 4; x++) {
+//			setters.get(x).setOnAction((e) -> {
+//				diceToRoll[x] = true;
+//				grid.getChildren().remove(setters.get(x));
+//			});
+//		}
 		return diceToRoll;
 	}
 	public void rollPool(boolean[] setToRoll) {

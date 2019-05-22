@@ -6,6 +6,7 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -19,6 +20,11 @@ public class Main extends Application {
 
 	FlowPane playerDicePanel = new FlowPane(Orientation.HORIZONTAL);
 	FlowPane computerDicePanel = new FlowPane(Orientation.HORIZONTAL);
+
+	Label lblPlayerScore = new Label("Twój wynik");
+	Label lblComputerScore = new Label("Wynik przeciwnika");
+	Label lblPlayerScoreInt = new Label();
+	Label lblComputerScoreInt = new Label();
 
 	boolean [] playerSetToRoll = new boolean [4];
 	boolean [] computerSetToRoll = new boolean [4];
@@ -38,6 +44,10 @@ public class Main extends Application {
 
 		grid.add(playerDicePanel, 0, 3, 1, 1);
 		grid.add(computerDicePanel, 0, 0, 1, 1);
+		grid.add(lblComputerScore, 15, 0 , 1, 1);
+		grid.add(lblComputerScoreInt, 17, 0 , 1, 1);
+		grid.add(lblPlayerScore, 15, 2 , 1, 1);
+		grid.add(lblPlayerScoreInt, 17, 2 , 1, 1);
 
 		Scene scene = new Scene(grid, 900, 600, Color.BLACK);
 
@@ -54,6 +64,7 @@ public class Main extends Application {
 		GameMechanic gameProcessor = new GameMechanic();
 		gameProcessor.roll(grid, playerDicePanel, computerDicePanel, dicePointsList, playerSetToRoll, computerSetToRoll, setters);
 		gameProcessor.reroll(grid, playerDicePanel, computerDicePanel, dicePointsList, playerSetToRoll, computerSetToRoll, setters);
+		gameProcessor.displayScore(lblPlayerScoreInt, lblComputerScoreInt);
 	}
 
 	public static void main(String[] args) {

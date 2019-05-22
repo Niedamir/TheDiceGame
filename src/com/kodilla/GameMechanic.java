@@ -1,6 +1,7 @@
 package com.kodilla;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -14,8 +15,10 @@ public class GameMechanic {
 	Button btnRoll = new Button();
 	Button btnReRoll = new Button();
 	boolean isPlayerTurn = false;
-
-
+	Score playerScore = new Score();
+	Score computerScore = new Score();
+	int playerPoints = 0;
+	int computerPoints = 0;
 
 	public void roll(GridPane grid, FlowPane playerDicePanel, FlowPane computerDicePanel, ArrayList<Image> dicePointsList, boolean[] playerSetToRoll, boolean[] computerSetToRoll, ArrayList<Button> setters) {
 		grid.add(btnRoll, 10, 10, 1, 1);
@@ -39,7 +42,14 @@ public class GameMechanic {
 
 		btnReRoll.setText("Przerzuć kości");
 		btnReRoll.setOnAction((e) -> {
+			//TO DO
 
 		});
+	}
+	public void displayScore(Label lblPlayerScoreInt, Label lblComputerScoreInt) {
+		playerScore.countScore(playerPool, playerPoints);
+		computerScore.countScore(computerPool, computerPoints);
+		lblPlayerScoreInt.setText(playerPoints);
+		lblComputerScoreInt.setText(computerPoints);
 	}
 }

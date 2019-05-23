@@ -14,57 +14,15 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class Main extends Application {
-	Image imgBoard = new Image("file:resources/woodBoard.jpg");
-	ArrayList<Image> dicePointsList = new ArrayList<Image>();
-	ArrayList<Button> setters = new ArrayList<Button>();
-
-	FlowPane playerDicePanel = new FlowPane(Orientation.HORIZONTAL);
-	FlowPane computerDicePanel = new FlowPane(Orientation.HORIZONTAL);
-
-	Label lblPlayerScore = new Label("Twój wynik");
-	Label lblComputerScore = new Label("Wynik przeciwnika");
-	Label lblPlayerScoreInt = new Label();
-	Label lblComputerScoreInt = new Label();
-
-	boolean [] playerSetToRoll = new boolean [4];
-	boolean [] computerSetToRoll = new boolean [4];
-
 	@Override
 	public void start(Stage primaryStage) {
-		BackgroundSize boardSize = new BackgroundSize(100, 100, true, true, true, false);
-		BackgroundImage boardImage = new BackgroundImage(imgBoard, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, boardSize);
-		Background board = new Background(boardImage);
-
-		GridPane grid = new GridPane();
-		grid.setAlignment(Pos.CENTER);
-		grid.setPadding(new Insets(12, 12, 12, 12));
-		grid.setHgap(5);
-		grid.setVgap(5);
-		grid.setBackground(board);
-
-		grid.add(playerDicePanel, 0, 3, 1, 1);
-		grid.add(computerDicePanel, 0, 0, 1, 1);
-		grid.add(lblComputerScore, 15, 0 , 1, 1);
-		grid.add(lblComputerScoreInt, 17, 0 , 1, 1);
-		grid.add(lblPlayerScore, 15, 2 , 1, 1);
-		grid.add(lblPlayerScoreInt, 17, 2 , 1, 1);
-
-		Scene scene = new Scene(grid, 900, 600, Color.BLACK);
-
-		primaryStage.setTitle("The Dice Game");
-		primaryStage.setScene(scene);
-		primaryStage.show();
-
 		Initialization initializator = new Initialization();
-		initializator.initializeDice(playerSetToRoll, playerDicePanel);
-		initializator.initializeDice(computerSetToRoll, computerDicePanel);
-		dicePointsList = initializator.initializeDicePointsList();
-		setters = initializator.initializeSetters();
+		GameEngine processor = new GameEngine();
+		GameStatus status = new GameStatus();
+		Display window = new Display();
 
-		GameMechanic gameProcessor = new GameMechanic();
-		gameProcessor.roll(grid, playerDicePanel, computerDicePanel, dicePointsList, playerSetToRoll, computerSetToRoll, setters);
-		gameProcessor.reroll(grid, playerDicePanel, computerDicePanel, dicePointsList, playerSetToRoll, computerSetToRoll, setters);
-		gameProcessor.displayScore(lblPlayerScoreInt, lblComputerScoreInt);
+		initializator.initializeGame(primaryStage, window, status);
+		processor.theGame(window, status);
 	}
 
 	public static void main(String[] args) {

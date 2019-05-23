@@ -4,43 +4,28 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 
 public class Initialization {
-	Image imgDice1Point = new Image("file:resources/dice1.png");
-	Image imgDice2Point = new Image("file:resources/dice2.png");
-	Image imgDice3Point = new Image("file:resources/dice3.png");
-	Image imgDice4Point = new Image("file:resources/dice4.png");
-	Image imgDice5Point = new Image("file:resources/dice5.png");
-	Image imgDice6Point = new Image("file:resources/dice6.png");
 
-	Button btnSetDice1 = new Button();
-	Button btnSetDice2 = new Button();
-	Button btnSetDice3 = new Button();
-	Button btnSetDice4 = new Button();
-
-	public void initializeDice(boolean[] iniDice, FlowPane iniDicePanel) {
-		for(int i = 0; i < 4; i++) {
-			iniDice[i] = true;
-			iniDicePanel.getChildren().add(new ImageView(imgDice6Point));
-		}
+	public void initializeRollResultHashMaps(GameStatus status) {
+		status.getPlayerRollResult().put(0, 0);
+		status.getPlayerRollResult().put(1, 0);
+		status.getPlayerRollResult().put(2, 0);
+		status.getPlayerRollResult().put(3, 0);
+		status.getPlayerRollResult().put(4, 0);
+		status.getPlayerRollResult().put(5, 0);
+		status.getComputerRollResult().put(0, 0);
+		status.getComputerRollResult().put(1, 0);
+		status.getComputerRollResult().put(2, 0);
+		status.getComputerRollResult().put(3, 0);
+		status.getComputerRollResult().put(4, 0);
+		status.getComputerRollResult().put(5, 0);
 	}
-	public ArrayList<Image> initializeDicePointsList() {
-		ArrayList<Image> dicePointsList = new ArrayList<Image>();
-		dicePointsList.add(imgDice1Point);
-		dicePointsList.add(imgDice2Point);
-		dicePointsList.add(imgDice3Point);
-		dicePointsList.add(imgDice4Point);
-		dicePointsList.add(imgDice5Point);
-		dicePointsList.add(imgDice6Point);
-		return dicePointsList;
-	}
-	public ArrayList<Button> initializeSetters() {
-		ArrayList<Button> setters = new ArrayList<>();
-		setters.add(btnSetDice1);
-		setters.add(btnSetDice2);
-		setters.add(btnSetDice3);
-		setters.add(btnSetDice4);
-		return setters;
+	public void initializeGame(Stage primaryStage, Display window, GameStatus status) {
+		window.drawWindow(primaryStage);
+		initializeRollResultHashMaps(status);
 	}
 }

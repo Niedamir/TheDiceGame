@@ -8,31 +8,39 @@ public class GameEngine {
     int x;
 
     public void roll(GameStatus status) {
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < 4; i++) {
             x = rollGen.nextInt(6);
             status.getPlayerRollResult().replace(x, status.getPlayerRollResult().get(x) + 1);
             x = rollGen.nextInt(6);
             status.getComputerRollResult().replace(x, status.getComputerRollResult().get(x) + 1);
         }
     }
-    public void setRerollPool() {}
-    public void reroll() {}
+    public void reroll(Display window, GameStatus status) {
+        int rerollResult = rollGen.nextInt(6);
+
+    }
     public void countScore() {}
     public void updateGameStatus() {}
 
     public void theGame(Display window, GameStatus status) {
-        status.turnPhase = 1;
         while(status.isGameRunning() == true) {
-            if(status.getRoundPhase() == 1) {
+            if(status.getTurnPhase() == 1) {
                 roll(status);
                 window.drawRollResult(status);
-                status.turnPhase++;
+                status.setTurnPhase(2);
             }
-            window.drawRollResult(status);
-            setRerollPool();
-            reroll();
-            countScore();
-            updateGameStatus();
+            if(status.getTurnPhase() == 2) {
+                window.draw
+
+                reroll();
+                status.setTurnPhase(3);
+            }
+            if(status.getTurnPhase() == 3) {
+                countScore();
+                updateGameStatus();
+                status.setTurnPhase(1);
+            }
+            status.isGameRunning = false; //for test only
         }
     }
 }

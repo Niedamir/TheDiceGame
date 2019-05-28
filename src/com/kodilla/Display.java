@@ -24,7 +24,7 @@ public class Display {
     Image imgDice5Point = new Image("file:resources/dice5.png");
     Image imgDice6Point = new Image("file:resources/dice6.png");
 
-    ArrayList<ImageView> diceSides = new ArrayList();
+    ArrayList<Image> diceSides = new ArrayList();
 
     FlowPane playerDicePanel = new FlowPane(Orientation.HORIZONTAL);
     FlowPane computerDicePanel = new FlowPane(Orientation.HORIZONTAL);
@@ -33,21 +33,21 @@ public class Display {
 
     //WINDOW
     public void drawWindow(Stage primaryStage) {
-        diceSides.add(new ImageView(imgDice1Point));
-        diceSides.add(new ImageView(imgDice2Point));
-        diceSides.add(new ImageView(imgDice3Point));
-        diceSides.add(new ImageView(imgDice4Point));
-        diceSides.add(new ImageView(imgDice5Point));
-        diceSides.add(new ImageView(imgDice6Point));
+        diceSides.add(imgDice1Point);
+        diceSides.add(imgDice2Point);
+        diceSides.add(imgDice3Point);
+        diceSides.add(imgDice4Point);
+        diceSides.add(imgDice5Point);
+        diceSides.add(imgDice6Point);
 
         BackgroundSize boardSize = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage boardImage = new BackgroundImage(imgBoard, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, boardSize);
         Background board = new Background(boardImage);
 
         grid.setAlignment(Pos.CENTER);
-        grid.setPadding(new Insets(12, 12, 12, 12));
-        grid.setHgap(5);
-        grid.setVgap(5);
+        grid.setPadding(new Insets(5, 5, 5, 5));
+        grid.setHgap(6);
+        grid.setVgap(6);
         grid.setBackground(board);
 
         primaryStage.setTitle("The Dice Game");
@@ -56,24 +56,22 @@ public class Display {
     }
     //FLOW PANES
     public void drawRollResult(GameStatus status) {
-        for(int x = 0; x < 5; x++) {
+        for(int x = 0; x < 6; x++) {
             while (status.playerRollResult.get(x) > 0) {
-                playerDicePanel.getChildren().add(diceSides.get(x));
+                playerDicePanel.getChildren().add(new ImageView(diceSides.get(x)));
                 status.playerRollResult.replace(x, status.playerRollResult.get(x) - 1);
             }
             while (status.computerRollResult.get(x) > 0) {
-                computerDicePanel.getChildren().add(diceSides.get(x));
+                computerDicePanel.getChildren().add(new ImageView(diceSides.get(x)));
                 status.computerRollResult.replace(x, status.computerRollResult.get(x) - 1);
             }
         }
-
         grid.add(playerDicePanel, 0, 0, 1, 1);
         grid.add(computerDicePanel, 0,1, 1,1);
     }
     //BUTTONS
     public void drawBtnStartGame(Button btnStartGame) {
         grid.add(btnStartGame, 0, 0, 1, 1);
-
     }
     public void deleteButton(Button deletedButton) {
         grid.getChildren().remove(deletedButton);

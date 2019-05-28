@@ -9,17 +9,20 @@ public class UserInterface {
         btnStartGame.setOnAction((e) -> {
             status.isGameRunning = true;
             status.setTurnPhase(1);
-            window.deleteButton(btnStartGame);
+            window.grid.getChildren().remove(btnStartGame);
             processor.theGame(window, status);
         });
-        window.drawBtnStartGame(btnStartGame);
+        window.grid.add(btnStartGame, 0, 0, 1, 1);
     }
 
-    public void checkDiceButtons(GameEngine processor, Display window, GameStatus status) {
-        Button btnCheckDice1 = new Button();
-        btnCheckDice1.setText("Przerzuć");
-        btnCheckDice1.setOnAction((e) -> {
-            processor.reroll(window, status);
+    public void rerollDiceButtons(GameEngine processor, Display window, GameStatus status) {
+        Button btnRerollDice1 = new Button();
+        btnRerollDice1.setText("Przerzuć");
+        btnRerollDice1.setOnAction((e) -> {
+            processor.reroll(window, status, 0);
+//            window.grid.getChildren().remove(btnRerollDice1);
         });
+        window.grid.add(btnRerollDice1, 0, 2, 1, 1);
+
     }
 }

@@ -45,6 +45,10 @@ public class UserInterface {
         btnEndReroll.setOnAction((e) -> {
             processor.countScore(window, status);
             window.grid.getChildren().remove(btnEndReroll);
+            window.grid.getChildren().remove(btnRerollDice0);
+            window.grid.getChildren().remove(btnRerollDice1);
+            window.grid.getChildren().remove(btnRerollDice2);
+            window.grid.getChildren().remove(btnRerollDice3);
         });
 
         window.grid.add(btnRerollDice0, 0, 2, 1, 1);

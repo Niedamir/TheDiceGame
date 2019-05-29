@@ -5,6 +5,7 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -24,12 +25,22 @@ public class Display {
     Image imgDice5Point = new Image("file:resources/dice5.png");
     Image imgDice6Point = new Image("file:resources/dice6.png");
 
+    Label lblScore = new Label("PUNKTY");
+    Label lblPlayer = new Label("gracz: ");
+    Label lblComputer = new Label("komputer: ");
+    Label lblPlayerScore = new Label("0");
+    Label lblComputerScore = new Label("0");
+
     ArrayList<Image> diceSides = new ArrayList();
 
     FlowPane playerDicePanel = new FlowPane(Orientation.HORIZONTAL);
     FlowPane computerDicePanel = new FlowPane(Orientation.HORIZONTAL);
     GridPane grid = new GridPane();
     Scene scene = new Scene(grid, 900, 600, Color.BLACK);
+
+    public ArrayList<Image> getDiceSides() {
+        return diceSides;
+    }
 
     //WINDOW
     public void drawWindow(Stage primaryStage) {
@@ -50,30 +61,39 @@ public class Display {
         grid.setVgap(6);
         grid.setBackground(board);
 
+        grid.add(playerDicePanel, 0, 1, 4, 1);
+        grid.add(computerDicePanel, 0,0, 4,1);
+
+        grid.add(lblScore, 6, 0, 3, 3);
+        grid.add(lblPlayer, 6, 5, 1, 1);
+        grid.add(lblPlayerScore, 7, 5, 1, 1);
+        grid.add(lblComputer, 6, 3, 1, 1);
+        grid.add(lblComputerScore, 7, 3, 1, 1);
+
         primaryStage.setTitle("The Dice Game");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
     //FLOW PANES
     public void drawRollResult(GameStatus status) {
-        for(int x = 0; x < 6; x++) {
-            while (status.playerRollResult.get(x) > 0) {
-                playerDicePanel.getChildren().add(new ImageView(diceSides.get(x)));
-                status.playerRollResult.replace(x, status.playerRollResult.get(x) - 1);
-            }
-            while (status.computerRollResult.get(x) > 0) {
-                computerDicePanel.getChildren().add(new ImageView(diceSides.get(x)));
-                status.computerRollResult.replace(x, status.computerRollResult.get(x) - 1);
-            }
+        playerDicePanel.getChildren().clear();
+        computerDicePanel.getChildren().clear();
+        for(int i = 0; i < 4; i++) {
+            playerDicePanel.getChildren().add(new ImageView(status.getPlayerPool().get(i)));
+            computerDicePanel.getChildren().add(new ImageView(status.getComputerPool().get(i)));
         }
-        grid.add(playerDicePanel, 0, 0, 1, 1);
-        grid.add(computerDicePanel, 0,1, 1,1);
+        System.out.println(status.toString());
+        status.setTurnPhase(2);
     }
-    //BUTTONS
-    public void drawBtnStartGame(Button btnStartGame) {
-        grid.add(btnStartGame, 0, 0, 1, 1);
+    public void drawReroll(GameStatus status) {
+        playerDicePanel.getChildren().clear();
+        for(int i = 0; i < 4; i++) {
+            playerDicePanel.getChildren().add(new ImageView(status.getPlayerPool().get(i)));
+        }
     }
-    public void deleteButton(Button deletedButton) {
-        grid.getChildren().remove(deletedButton);
+    //SCORES
+    public void drawScores(GameStatus status) {
+        lblPlayerScore.setText(status.playerScoreToString());
+        lblComputerScore.setText(status.computerScoreToString());
     }
 }

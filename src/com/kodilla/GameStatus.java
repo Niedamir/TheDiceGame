@@ -1,5 +1,8 @@
 package com.kodilla;
 
+import javafx.scene.image.Image;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameStatus {
@@ -11,6 +14,22 @@ public class GameStatus {
 
     HashMap<Integer, Integer> playerRollResult = new HashMap<Integer, Integer>();
     HashMap<Integer, Integer> computerRollResult = new HashMap<Integer, Integer>();
+    HashMap<Integer, Image> playerPool = new HashMap<Integer, Image>();
+    HashMap<Integer, Image> computerPool = new HashMap<Integer, Image>();
+
+    public HashMap<Integer, Image> getComputerPool() {
+        return computerPool;
+    }
+    public void setComputerPool(HashMap<Integer, Image> computerPool) {
+        this.computerPool = computerPool;
+    }
+
+    public HashMap<Integer, Image> getPlayerPool() {
+        return playerPool;
+    }
+    public void setPlayerPool(HashMap<Integer, Image> playerPool) {
+        this.playerPool = playerPool;
+    }
 
     public boolean isPlayerTurn() {
         return isPlayerTurn;
@@ -59,5 +78,21 @@ public class GameStatus {
     }
     public void setComputerRollResult(HashMap<Integer, Integer> computerRollResult) {
         this.computerRollResult = computerRollResult;
+    }
+
+
+    public String playerScoreToString() {
+        return "" + playerScore;
+    }
+    public String computerScoreToString() {
+        return "" + computerScore;
+    }
+
+    @Override
+    public String toString() {
+        return "GameStatus{" +
+           "playerPool=" + playerPool +
+           ", computerPool=" + computerPool +
+           '}';
     }
 }

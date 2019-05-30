@@ -65,10 +65,10 @@ public class Display {
         grid.add(computerDicePanel, 0,0, 4,1);
 
         grid.add(lblScore, 6, 0, 3, 3);
-        grid.add(lblPlayer, 6, 5, 1, 1);
-        grid.add(lblPlayerScore, 7, 5, 1, 1);
-        grid.add(lblComputer, 6, 3, 1, 1);
-        grid.add(lblComputerScore, 7, 3, 1, 1);
+        grid.add(lblPlayer, 6, 2, 1, 1);
+        grid.add(lblPlayerScore, 7, 2, 1, 1);
+        grid.add(lblComputer, 6, 1, 1, 1);
+        grid.add(lblComputerScore, 7, 1, 1, 1);
 
         primaryStage.setTitle("The Dice Game");
         primaryStage.setScene(scene);
@@ -82,8 +82,6 @@ public class Display {
             playerDicePanel.getChildren().add(new ImageView(status.getPlayerPool().get(i)));
             computerDicePanel.getChildren().add(new ImageView(status.getComputerPool().get(i)));
         }
-        System.out.println(status.toString());
-        status.setTurnPhase(2);
     }
     public void drawReroll(GameStatus status) {
         playerDicePanel.getChildren().clear();
@@ -95,5 +93,9 @@ public class Display {
     public void drawScores(GameStatus status) {
         lblPlayerScore.setText(status.playerScoreToString());
         lblComputerScore.setText(status.computerScoreToString());
+    }
+    //ENDGAME
+    public void endGame() {
+        
     }
 }

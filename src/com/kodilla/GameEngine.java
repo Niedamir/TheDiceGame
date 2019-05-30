@@ -78,23 +78,15 @@ public class GameEngine {
 			}
 		}
     	window.drawScores(status);
-    	status.setTurnPhase(3);
 	 }
-    public void updateGameStatus() {}
-
-    public void theGame(Display window, GameStatus status) {
-    	while(status.isGameRunning() == true) {
-    		if(status.getTurnPhase() == 1) {
-    			roll(status, window);
-    			window.drawRollResult(status);
-    		}
-    		if(status.getTurnPhase() == 2) {
-    			ui.rerollDiceButtons(new GameEngine(), window, status);
-    		}
-    		if(status.getTurnPhase() == 3) {
-    			updateGameStatus();
-    		}
-    		status.isGameRunning = false; //for test only
-    	}
-    }
+	 public void updateStatus(GameStatus status, Display window) {
+    	for(int i = 0; i < 6; i++) {
+    		status.getPlayerRollResult().replace(i, 0);
+    		status.getComputerRollResult().replace(i,0);
+		}
+    	if(status.getPlayerScore() == status.getPointsToWin() || status.getComputerScore() == status.getPointsToWin()) {
+    		status.setGameRunning(false);
+    		window.endGame();
+		}
+	 }
 }

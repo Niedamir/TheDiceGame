@@ -8,9 +8,11 @@ public class UserInterface {
         btnStartGame.setText("Rozpocznij grę");
         btnStartGame.setOnAction((e) -> {
             status.isGameRunning = true;
-            status.setTurnPhase(1);
             window.grid.getChildren().remove(btnStartGame);
-            processor.theGame(window, status);
+//            processor.theGame(window, status);
+            processor.roll(status, window);
+            window.drawRollResult(status);
+            rerollDiceButtons(processor, window, status);
         });
         window.grid.add(btnStartGame, 0, 0, 1, 1);
     }
@@ -49,6 +51,7 @@ public class UserInterface {
             window.grid.getChildren().remove(btnRerollDice1);
             window.grid.getChildren().remove(btnRerollDice2);
             window.grid.getChildren().remove(btnRerollDice3);
+            nextRoundButton(processor, window, status);
         });
 
         window.grid.add(btnRerollDice0, 0, 2, 1, 1);
@@ -56,5 +59,18 @@ public class UserInterface {
         window.grid.add(btnRerollDice2, 2, 2, 1, 1);
         window.grid.add(btnRerollDice3, 3, 2, 1, 1);
         window.grid.add(btnEndReroll, 0,3,1,1);
+    }
+
+    public void nextRoundButton(GameEngine processor, Display window, GameStatus status) {
+        Button btnNextRound = new Button();
+        btnNextRound.setText("Graj dalej");
+        btnNextRound.setOnAction((e) -> {
+            window.grid.getChildren().remove(btnNextRound);
+            processor.updateStatus(status, window);
+            processor.roll(status, window);
+            window.drawRollResult(status);
+            rerollDiceButtons(processor, window, status);
+        });
+        window.grid.add(btnNextRound, 0, 3, 1, 1);
     }
 }

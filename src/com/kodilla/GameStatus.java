@@ -1,16 +1,13 @@
 package com.kodilla;
 
 import javafx.scene.image.Image;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameStatus {
-    boolean isPlayerTurn;
     boolean isGameRunning;
     int playerScore = 0;
     int computerScore = 0;
-    Integer turnPhase = 0;
+    int pointsToWin = 300;
 
     HashMap<Integer, Integer> playerRollResult = new HashMap<Integer, Integer>();
     HashMap<Integer, Integer> computerRollResult = new HashMap<Integer, Integer>();
@@ -29,13 +26,6 @@ public class GameStatus {
     }
     public void setPlayerPool(HashMap<Integer, Image> playerPool) {
         this.playerPool = playerPool;
-    }
-
-    public boolean isPlayerTurn() {
-        return isPlayerTurn;
-    }
-    public void setPlayerTurn(boolean playerTurn) {
-        isPlayerTurn = playerTurn;
     }
 
     public boolean isGameRunning() {
@@ -59,16 +49,10 @@ public class GameStatus {
         this.computerScore = computerScore;
     }
 
-    public Integer getTurnPhase() {
-        return turnPhase;
-    }
-    public void setTurnPhase(Integer turnPhase) {
-        this.turnPhase = turnPhase;
-    }
-
     public HashMap<Integer, Integer> getPlayerRollResult() {
         return playerRollResult;
     }
+
     public void setPlayerRollResult(HashMap<Integer, Integer> playerRollResult) {
         this.playerRollResult = playerRollResult;
     }
@@ -80,19 +64,19 @@ public class GameStatus {
         this.computerRollResult = computerRollResult;
     }
 
+    public int getPointsToWin() {
+        return pointsToWin;
+    }
+    public void setPointsToWin(int pointsToWin) {
+        this.pointsToWin = pointsToWin;
+    }
+
 
     public String playerScoreToString() {
         return "" + playerScore;
     }
+
     public String computerScoreToString() {
         return "" + computerScore;
-    }
-
-    @Override
-    public String toString() {
-        return "GameStatus{" +
-           "playerPool=" + playerPool +
-           ", computerPool=" + computerPool +
-           '}';
     }
 }

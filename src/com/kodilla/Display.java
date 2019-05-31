@@ -31,6 +31,9 @@ public class Display {
     Label lblPlayerScore = new Label("0");
     Label lblComputerScore = new Label("0");
 
+    Label lblWin = new Label("GRATULACJE! Wygrałeś");
+    Label lblLose = new Label("Spróbuj szczęścia jeszcze raz");
+
     ArrayList<Image> diceSides = new ArrayList();
 
     FlowPane playerDicePanel = new FlowPane(Orientation.HORIZONTAL);
@@ -95,7 +98,21 @@ public class Display {
         lblComputerScore.setText(status.computerScoreToString());
     }
     //ENDGAME
-    public void endGame() {
-        
+    public void endGame(GameStatus status) {
+        if(status.isGameRunning() == false && status.getPlayerScore() >=status.getPointsToWin() || status.getComputerScore() >=status.getPointsToWin()) {
+            if(status.getPlayerScore() > status.getComputerScore()) {
+                playerDicePanel.getChildren().clear();
+                computerDicePanel.getChildren().clear();
+                grid.add(lblWin, 1, 0, 1,1);
+            } else {
+                playerDicePanel.getChildren().clear();
+                computerDicePanel.getChildren().clear();
+                grid.add(lblLose, 1, 0, 1, 1);
+            }
+        }
+    }
+    public void clearBoard() {
+        lblPlayerScore.setText("0");
+        lblComputerScore.setText("0");
     }
 }

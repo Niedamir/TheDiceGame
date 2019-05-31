@@ -84,9 +84,23 @@ public class GameEngine {
     		status.getPlayerRollResult().replace(i, 0);
     		status.getComputerRollResult().replace(i,0);
 		}
-    	if(status.getPlayerScore() == status.getPointsToWin() || status.getComputerScore() == status.getPointsToWin()) {
+    	if(status.getPlayerScore() >= status.getPointsToWin() || status.getComputerScore() >= status.getPointsToWin()) {
     		status.setGameRunning(false);
-    		window.endGame();
+    		window.endGame(status);
+    		ui.startGameButton(new GameEngine(), window, status);
 		}
+	 }
+	 public void clearMaps(GameStatus status, Display window) {
+    	status.setPlayerScore(0);
+    	status.setComputerScore(0);
+    	for(int i = 0; i < 6; i++) {
+    		status.getComputerRollResult().replace(i, 0);
+    		status.getComputerRollResult().replace(i, 0);
+		}
+    	for(int j = 0; j < 4; j++) {
+    		status.getPlayerPool().replace(j, window.getDiceSides().get(0));
+    		status.getPlayerPool().replace(j, window.getDiceSides().get(0));
+		}
+    	window.clearBoard();
 	 }
 }

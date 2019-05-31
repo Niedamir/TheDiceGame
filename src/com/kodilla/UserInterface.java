@@ -7,14 +7,16 @@ public class UserInterface {
         Button btnStartGame = new Button();
         btnStartGame.setText("Rozpocznij grę");
         btnStartGame.setOnAction((e) -> {
+            processor.clearMaps(status, window);
+            window.grid.getChildren().remove(window.lblWin);
+            window.grid.getChildren().remove(window.lblLose);
             status.isGameRunning = true;
             window.grid.getChildren().remove(btnStartGame);
-//            processor.theGame(window, status);
             processor.roll(status, window);
             window.drawRollResult(status);
             rerollDiceButtons(processor, window, status);
         });
-        window.grid.add(btnStartGame, 0, 0, 1, 1);
+        window.grid.add(btnStartGame, 1, 1, 1, 1);
     }
 
     public void rerollDiceButtons(GameEngine processor, Display window, GameStatus status) {
@@ -51,7 +53,8 @@ public class UserInterface {
             window.grid.getChildren().remove(btnRerollDice1);
             window.grid.getChildren().remove(btnRerollDice2);
             window.grid.getChildren().remove(btnRerollDice3);
-            nextRoundButton(processor, window, status);
+            processor.updateStatus(status, window);
+            if(status.isGameRunning() == true) { nextRoundButton(processor, window, status); }
         });
 
         window.grid.add(btnRerollDice0, 0, 2, 1, 1);
@@ -66,11 +69,14 @@ public class UserInterface {
         btnNextRound.setText("Graj dalej");
         btnNextRound.setOnAction((e) -> {
             window.grid.getChildren().remove(btnNextRound);
-            processor.updateStatus(status, window);
             processor.roll(status, window);
             window.drawRollResult(status);
             rerollDiceButtons(processor, window, status);
         });
-        window.grid.add(btnNextRound, 0, 3, 1, 1);
+        if(status.isGameRunning() == true) {
+            window.grid.add(btnNextRound, 0, 3, 1, 1);
+        } else {
+            startGameButton(processor, window, status);
+        }
     }
 }

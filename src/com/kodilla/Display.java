@@ -40,8 +40,8 @@ public class Display {
     Label lblInstruction = new Label("Gra polega na zbieraniu punktów. Pierwszy gracz,\nktóry osiągnie 300 punktów" +
                                         "wygrywa. Po każdym\nrzucie możesz raz przerzucić jedną kość. Gdy uznasz,\n" +
                                         "że wynik Cię satysfakocjonuje kliknij\nprzyciszk PODLICZ PUNKTY. Kliknięcie" +
-                                        "przycisku\nGRAJ DALEJ spowoduje uruchomienie nastpnej\nrundy rozgrywki.");
-    Label lblPunctation = new Label("Punkty naliczane są za ilość oczek na kostce.\nJeżeli posiadasz dwie kostki" +
+                                        "przycisku\nGRAJ DALEJ spowoduje uruchomienie nastpnej\nrundy rozgrywki.\nPunkty" +
+                                        " naliczane są za ilość oczek na kostce.\nJeżeli posiadasz dwie kostki" +
                                         "o tej samej liczbie\noczek (para), wówczas punkty są mnożone przez 5.\nJeżeli" +
                                         "posiadasz trzy kostki o tej samej liczbie\n oczek (trójka), punkty są mnożone" +
                                         "przez 10. Przy\nczterech kostkach z tą samą liczbą oczek\notrzymasz 100 punktów.");
@@ -92,8 +92,6 @@ public class Display {
         lblGameTitle.setTextFill(Color.web("#000"));
         lblInstruction.setFont(new Font("Helvetica", 13));
         lblInstruction.setTextFill(Color.web("#000"));
-        lblPunctation.setFont(new Font("Helvetica", 13));
-        lblPunctation.setTextFill(Color.web("#000"));
 
         lblScore.setFont(new Font("Helvetica", 20));
         lblScore.setTextFill(Color.web("#000"));
@@ -127,21 +125,30 @@ public class Display {
 
         grid.add(lblYourDice, 0,3,1,1);
         grid.add(lblComputerDice, 0, 1, 1,1);
-        grid.add(lblGameTitle, 5, 0,3,3);
-        grid.add(lblInstruction, 5,0,3,3);
-        grid.add(lblPunctation, 5,2,3,3);
-        lblGameTitle.setPadding(new Insets(-150, 0, 0, -50));
+        grid.add(lblGameTitle, 5, 0,3,4);
+        grid.add(lblInstruction, 5,0,3,4);
+        lblGameTitle.setPadding(new Insets(-300, 0, 0, -50));
         lblInstruction.setPadding(new Insets(70, 0, 0, -50));
-        lblPunctation.setPadding(new Insets(-100, 0, 0, -50));
         lblYourDice.setVisible(false);
         lblComputerDice.setVisible(false);
-    }
-    public void drawScoreTable() {
+
         grid.add(lblScore, 6, 4, 3, 1);
         grid.add(lblPlayer, 6, 6, 1, 1);
         grid.add(lblPlayerScore, 7, 6, 1, 1);
         grid.add(lblComputer, 6, 5, 1, 1);
         grid.add(lblComputerScore, 7, 5, 1, 1);
+        lblScore.setVisible(false);
+        lblPlayer.setVisible(false);
+        lblPlayerScore.setVisible(false);
+        lblComputer.setVisible(false);
+        lblComputerScore.setVisible(false);
+    }
+    public void displayScoreTable() {
+        lblScore.setVisible(true);
+        lblPlayer.setVisible(true);
+        lblPlayerScore.setVisible(true);
+        lblComputer.setVisible(true);
+        lblComputerScore.setVisible(true);
     }
     //FLOW PANES
     public void drawRollResult(GameStatus status) {

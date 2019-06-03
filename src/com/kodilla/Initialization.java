@@ -35,6 +35,5 @@ public class Initialization {
 	public void initializeGame(Stage primaryStage, Display window, GameStatus status) {
 		window.drawWindow(primaryStage);
 		initializeRollResultHashMaps(status, window);
-		window.drawScoreTable();
 	}
 }

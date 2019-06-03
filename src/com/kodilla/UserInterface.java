@@ -21,14 +21,15 @@ public class UserInterface {
             window.grid.getChildren().remove(btnStartGame);
             processor.roll(status, window);
             window.drawRollResult(status);
+            window.displayScoreTable();
             rerollDiceButtons(processor, window, status);
         });
         window.grid.add(btnStartGame, 1, 1, 1, 1);
-        window.grid.add(btnRerollDice0, 0, 2, 1, 1);
-        window.grid.add(btnRerollDice1, 1, 2, 1, 1);
-        window.grid.add(btnRerollDice2, 2, 2, 1, 1);
-        window.grid.add(btnRerollDice3, 3, 2, 1, 1);
-        window.grid.add(btnEndReroll, 0,3,1,1);
+        window.grid.add(btnRerollDice0, 0, 4, 1, 1);
+        window.grid.add(btnRerollDice1, 1, 4, 1, 1);
+        window.grid.add(btnRerollDice2, 2, 4, 1, 1);
+        window.grid.add(btnRerollDice3, 3, 4, 1, 1);
+        window.grid.add(btnEndReroll, 0,5,1,1);
         btnRerollDice0.setVisible(false);
         btnRerollDice1.setVisible(false);
         btnRerollDice2.setVisible(false);
@@ -85,7 +86,7 @@ public class UserInterface {
             rerollDiceButtons(processor, window, status);
         });
         if(status.isGameRunning() == true) {
-            window.grid.add(btnNextRound, 0, 3, 1, 1);
+            window.grid.add(btnNextRound, 0, 5, 1, 1);
         } else {
             startGameButton(processor, window, status);
         }

@@ -14,6 +14,7 @@ public class Main extends Application {
 
 		initializator.initializeGame(primaryStage, window, status);
 		ui.startGameButton(processor, window, status);
+		window.setLabels();
 	}
 	public static void main(String[] args) {
 		launch(args);
